@@ -1,0 +1,17 @@
+[
+    {
+        "codigo": 1,
+        "nomeProfessor": "Rafael Speroni",
+        "emailProfessor": "rafael.speroni@...br"
+    },
+    {
+        "codigo": 2,
+        "nomeProfessor": "Joice Mota",
+        "emailProfessor": "joice.mota@...br"
+    },
+    {
+        "codigo": 3,
+        "nomeProfessor": "Aujor Andrade",
+        "emailProfessor": "aujor.andrade@...br"
+    }
+]
