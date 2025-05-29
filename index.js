@@ -20,7 +20,7 @@ app.get('/sobre', (req, res) => {
     res.send('Esta é a página sobre!');
 });
 
-app.use('/', require('.routes'))
+app.use('/', require('./routes'))
 
 // Iniciar o servidor
 app.listen(PORT, () => {

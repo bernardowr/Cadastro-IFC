@@ -1,5 +1,5 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
 
 const professores = require('../public/professores.json')
 router.get('/', (req, res) => {
@@ -27,3 +27,5 @@ router.delete('/:id', (req, res) => {
     console.log(req.body)
     res.send('A requisição DELETE para professores/ chegou: ' + req.params.id)
 })
+
+module.exports = router;
