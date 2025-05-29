@@ -2,16 +2,19 @@
     {
         "codigo": 1,
         "nomeProfessor": "Rafael Speroni",
-        "emailProfessor": "rafael.speroni@...br"
+        "email": "rafael.speroni@...br",
+        "sala": "14-A"
     },
     {
         "codigo": 2,
         "nomeProfessor": "Joice Mota",
-        "emailProfessor": "joice.mota@...br"
+        "email": "joice.mota@...br",
+        "sala": "15-B"
     },
     {
         "codigo": 3,
-        "nomeProfessor": "Aujor Andrade",
-        "emailProfessor": "aujor.andrade@...br"
+        "nomeProfessor": "Aujôr Andrade",
+        "email": "aujor.andrade@...br",
+        "sala": "16"
     }
 ]

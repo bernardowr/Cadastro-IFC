@@ -7,6 +7,9 @@ app.use(cors({
     origin: '*'
 }))
 
+// Middleware para analisar JSON
+app.use(express.json());
+
 // Rota simples
 app.get('/', (req, res) => {
     res.send('Servidor Express rodando! 🚀');
