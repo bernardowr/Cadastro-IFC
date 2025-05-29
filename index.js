@@ -20,28 +20,7 @@ app.get('/sobre', (req, res) => {
     res.send('Esta é a página sobre!');
 });
 
-//Rota professores
-app.get('/professores', (req, res) => {
-    //Carrega o arquivo professores.json
-    const professores = require('./public/professores.json');
-    //envia o arquivo professores.json como resposta
-    res.json(professores);
-});
-
-app.post('/professores', (req, res) => {
-    console.log(req.body)
-    res.send('A requisição POST para professores/ chegou: ' + req.body.nomeProfessor)
-})
-
-app.put('/professores', (req, res) => {
-    console.log(req.body)
-    res.send('A requisição PUT para professores/ chegou: ' + req.body.codigo)
-})
-
-app.delete('/professores', (req, res) => {
-    console.log(req.body)
-    res.send('A requisição DELETE para professores/ chegou: ' + req.body.codigo)
-})
+app.use('/', require('.routes'))
 
 // Iniciar o servidor
 app.listen(PORT, () => {
