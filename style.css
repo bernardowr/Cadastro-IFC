@@ -66,6 +66,8 @@ th {
 
 button {
     padding: 10px 20px;
+    width: 100px;
+    margin: 5px;
     background-color: #2f9e41;
     color: white;
     border: none;

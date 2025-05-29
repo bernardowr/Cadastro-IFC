@@ -1,4 +1,3 @@
-let professores = [];
 let currentProfessorId = null;
 
 //carrega os Professores como linhas da tabela
@@ -26,7 +25,7 @@ function renderProfessores() {
 }
 
 function addProfessor(codigo, nomeProfessor, email, sala) {
-    let professor = {codigo, nomeProfessor, email, sala}
+    let professor = { codigo, nomeProfessor, email, sala }
     console.log(professor);
     fetch('http://localhost:3000/professores', {
         method: 'POST',
@@ -35,9 +34,9 @@ function addProfessor(codigo, nomeProfessor, email, sala) {
     })
         .then(response => response.json())
         .then(dados => {
-            console.log(dados);         
+            console.log(dados);
         })
-    renderProfessores();    
+    renderProfessores();
 }
 
 function editProfessor(index) {
