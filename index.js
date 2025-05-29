@@ -28,6 +28,21 @@ app.get('/professores', (req, res) => {
     res.json(professores);
 });
 
+app.post('/professores', (req, res) => {
+    console.log(req.body)
+    res.send('A requisição POST para professores/ chegou: ' + req.body.nomeProfessor)
+})
+
+app.put('/professores', (req, res) => {
+    console.log(req.body)
+    res.send('A requisição PUT para professores/ chegou: ' + req.body.codigo)
+})
+
+app.delete('/professores', (req, res) => {
+    console.log(req.body)
+    res.send('A requisição DELETE para professores/ chegou: ' + req.body.codigo)
+})
+
 // Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando em http://localhost:${PORT}`);

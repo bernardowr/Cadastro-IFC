@@ -26,14 +26,18 @@ function renderProfessores() {
 }
 
 function addProfessor(codigo, nomeProfessor, email, sala) {
+    let professor = {codigo, nomeProfessor, email, sala}
+    console.log(professor);
     fetch('http://localhost:3000/professores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ codigo, nomeProfessor, email, sala })
+        body: JSON.stringify(professor)
     })
-        .then(() => {
-            renderProfessores();
-        });
+        .then(response => response.json())
+        .then(dados => {
+            console.log(dados);         
+        })
+    renderProfessores();    
 }
 
 function editProfessor(index) {
