@@ -102,7 +102,7 @@ document.querySelectorAll('.close').forEach(function (closeBtn) {
 const cursoForm = document.getElementById('cursoForm');
 cursoForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const id = document.getElementById("id").value;
+    let id = document.getElementById("id").value;
     const nome = document.getElementById("nome").value;
     const sigla = document.getElementById("sigla").value;
     const descricao = document.getElementById("descricao").value;
@@ -120,8 +120,21 @@ cursoForm.addEventListener('submit', function (e) {
                 renderCursos();
             });
     } else {
-        addCurso(id, nome, sigla, descricao, coordenador);
-        closeModal('cursoModal');
+        // Gera o próximo id sequencial ao adicionar
+        fetch('http://localhost:3000/cursos')
+            .then(response => response.json())
+            .then(cursos => {
+                if (!id) {
+                    if (cursos.length > 0) {
+                        const maxId = Math.max(...cursos.map(c => Number(c.id)));
+                        id = maxId + 1;
+                    } else {
+                        id = 1;
+                    }
+                }
+                addCurso(id, nome, sigla, descricao, coordenador);
+                closeModal('cursoModal');
+            });
     }
 });
 

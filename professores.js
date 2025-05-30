@@ -97,7 +97,7 @@ document.querySelectorAll('.close').forEach(function (closeBtn) {
 const professorForm = document.getElementById('professorForm');
 professorForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const codigo = document.getElementById("codigo").value;
+    let codigo = document.getElementById("codigo").value;
     const nomeProfessor = document.getElementById("nomeProfessor").value;
     const email = document.getElementById("email").value;
     const sala = document.getElementById("sala").value;
@@ -114,9 +114,22 @@ professorForm.addEventListener('submit', function (e) {
                 renderProfessores();
             });
     } else {
-        addProfessor(codigo, nomeProfessor, email, sala);
-        closeModal('professorModal');
+        // Gera o próximo código sequencial ao adicionar
+        fetch('http://localhost:3000/professores')
+            .then(response => response.json())
+            .then(professores => {
+                if (!codigo) {
+                    if (professores.length > 0) {
+                        const maxCodigo = Math.max(...professores.map(p => Number(p.codigo)));
+                        codigo = maxCodigo + 1;
+                    } else {
+                        codigo = 1;
+                    }
+                }
+                addProfessor(codigo, nomeProfessor, email, sala);
+                closeModal('professorModal');
+            });
     }
 });
 
-renderProfessores()
+renderProfessores();
