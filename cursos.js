@@ -102,7 +102,6 @@ document.querySelectorAll('.close').forEach(function (closeBtn) {
 const cursoForm = document.getElementById('cursoForm');
 cursoForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    let id = document.getElementById("id").value;
     const nome = document.getElementById("nome").value;
     const sigla = document.getElementById("sigla").value;
     const descricao = document.getElementById("descricao").value;
@@ -110,6 +109,7 @@ cursoForm.addEventListener('submit', function (e) {
 
     if (currentCursoId !== null) {
         // Atualiza no backend usando PUT
+        const id = document.getElementById("id").value;
         fetch(`http://localhost:3000/cursos/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -124,13 +124,9 @@ cursoForm.addEventListener('submit', function (e) {
         fetch('http://localhost:3000/cursos')
             .then(response => response.json())
             .then(cursos => {
-                if (!id) {
-                    if (cursos.length > 0) {
-                        const maxId = Math.max(...cursos.map(c => Number(c.id)));
-                        id = maxId + 1;
-                    } else {
-                        id = 1;
-                    }
+                let id = 1;
+                if (cursos.length > 0) {
+                    id = Number(cursos[cursos.length - 1].id) + 1;
                 }
                 addCurso(id, nome, sigla, descricao, coordenador);
                 closeModal('cursoModal');

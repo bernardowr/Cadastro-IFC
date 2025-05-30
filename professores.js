@@ -97,13 +97,13 @@ document.querySelectorAll('.close').forEach(function (closeBtn) {
 const professorForm = document.getElementById('professorForm');
 professorForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    let codigo = document.getElementById("codigo").value;
     const nomeProfessor = document.getElementById("nomeProfessor").value;
     const email = document.getElementById("email").value;
     const sala = document.getElementById("sala").value;
 
     if (currentProfessorId !== null) {
         // Atualiza no backend usando PUT
+        const codigo = document.getElementById("codigo").value;
         fetch(`http://localhost:3000/professores/${codigo}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -114,17 +114,13 @@ professorForm.addEventListener('submit', function (e) {
                 renderProfessores();
             });
     } else {
-        // Gera o próximo código sequencial ao adicionar
+        // Gera o próximo codigo sequencial ao adicionar
         fetch('http://localhost:3000/professores')
             .then(response => response.json())
             .then(professores => {
-                if (!codigo) {
-                    if (professores.length > 0) {
-                        const maxCodigo = Math.max(...professores.map(p => Number(p.codigo)));
-                        codigo = maxCodigo + 1;
-                    } else {
-                        codigo = 1;
-                    }
+                let codigo = 1;
+                if (professores.length > 0) {
+                    codigo = Number(professores[professores.length - 1].codigo) + 1;
                 }
                 addProfessor(codigo, nomeProfessor, email, sala);
                 closeModal('professorModal');
