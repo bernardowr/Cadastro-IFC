@@ -114,13 +114,13 @@ professorForm.addEventListener('submit', function (e) {
                 renderProfessores();
             });
     } else {
-        // Gera o próximo codigo sequencial ao adicionar
+        // Gera o próximo codigo sequencial ao adicionar (maior codigo + 1)
         fetch('http://localhost:3000/professores')
             .then(response => response.json())
             .then(professores => {
                 let codigo = 1;
                 if (professores.length > 0) {
-                    codigo = Number(professores[professores.length - 1].codigo) + 1;
+                    codigo = Math.max(...professores.map(p => Number(p.codigo))) + 1;
                 }
                 addProfessor(codigo, nomeProfessor, email, sala);
                 closeModal('professorModal');

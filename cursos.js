@@ -120,13 +120,14 @@ cursoForm.addEventListener('submit', function (e) {
                 renderCursos();
             });
     } else {
-        // Gera o próximo id sequencial ao adicionar
+        // Gera o próximo id sequencial ao adicionar (maior id + 1)
         fetch('http://localhost:3000/cursos')
             .then(response => response.json())
             .then(cursos => {
                 let id = 1;
                 if (cursos.length > 0) {
-                    id = Number(cursos[cursos.length - 1].id) + 1;
+                    // Busca o maior id existente
+                    id = Math.max(...cursos.map(c => Number(c.id))) + 1;
                 }
                 addCurso(id, nome, sigla, descricao, coordenador);
                 closeModal('cursoModal');
