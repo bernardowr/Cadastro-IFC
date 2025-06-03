@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/css/style.css">
+    <title>Professores</title>
+</head>
+
+<body>
+    <header>
+        <div class="logo-titulo">
+            <img src="img/logo.png" alt="Logo do IfC" class="logo">
+            <h1>Cadastro de Professores</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Página Principal</a></li>
+                <li><a href="cursos.html">Cadastro de Cursos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <button id="addProfessor">Adicionar Professor</button>
+        <table id="professoresTable">
+            <thead>
+                <tr>
+                    <th>Nome do Professor</th>
+                    <th>E-mail</th>
+                    <th>Sala</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Professores serão inseridos aqui via JavaScript -->
+            </tbody>
+        </table>
+    </main>
+    <!-- Modal para Adicionar/Editar Professores -->
+    <div id="professorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adicionar/Editar Professor</h2>
+            <form id="professorForm">
+                <input type="hidden" id="codigo" name="codigo" required>
+                <label for="nomeProfessor">Nome do Professor:</label>
+                <input type="text" id="nomeProfessor" name="nomeProfessor" required>
+                <label for="email">e-mail:</label>
+                <input type="text" id="email" name="email" required>
+                <label for="sala">Sala:</label>
+                <input type="text" id="sala" name="sala" required>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+    <script src="/frontend/js/professores.js"></script>
+</body>
+
+
+</html>
