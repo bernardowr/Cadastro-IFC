@@ -11,7 +11,7 @@ function renderProfessores() {
             professores.forEach((professor, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${professor.nomeProfessor}</td>
+                    <td>${professor.nomeprofessor}</td>
                     <td>${professor.email}</td>
                     <td>${professor.sala}</td>
                     <td>
@@ -24,8 +24,8 @@ function renderProfessores() {
         });
 }
 
-function addProfessor(codigo, nomeProfessor, email, sala) {
-    let professor = { codigo, nomeProfessor, email, sala }
+function addProfessor(codigo, nome, email, sala) {
+    let professor = { codigo, nome, email, sala }
     console.log(professor);
     fetch('http://localhost:3000/professores', {
         method: 'POST',
@@ -45,7 +45,7 @@ function editProfessor(index) {
         .then(professores => {
             const professor = professores[index];
             document.getElementById("codigo").value = professor.codigo;
-            document.getElementById("nomeProfessor").value = professor.nomeProfessor;
+            document.getElementById("nomeProfessor").value = professor.nomeprofessor;
             document.getElementById("email").value = professor.email;
             document.getElementById("sala").value = professor.sala;
             currentProfessorId = professor.codigo; // Use o código como identificador
@@ -107,7 +107,7 @@ professorForm.addEventListener('submit', function (e) {
         fetch(`http://localhost:3000/professores/${codigo}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ codigo, nomeProfessor, email, sala })
+            body: JSON.stringify({ codigo, nome: nomeProfessor, email, sala })
         })
             .then(() => {
                 closeModal('professorModal');
