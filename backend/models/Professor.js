@@ -75,12 +75,17 @@ class Professor {
   }
 
   static async delete(id) {
-    // Desvincula o professor dos cursos antes de deletar
+    // Remove o vínculo do professor nos cursos
     await query(
-      `UPDATE public.cursos SET professor_id = NULL WHERE professor_id = $1`, [id]
+      `UPDATE public.cursos SET id_coordenador = NULL WHERE id_coordenador = $1`, [id]
     );
 
-    // Agora deleta o professor normalmente
+    // Remove o vínculo do professor nas salas
+    await query(
+      `UPDATE public.sala SET professor_id = NULL WHERE professor_id = $1`, [id]
+    );
+
+    // Agora deleta o professor
     const result = await query(
       `DELETE FROM public.professor WHERE id = $1 RETURNING *`, [id]
     );

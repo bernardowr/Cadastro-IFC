@@ -58,11 +58,14 @@ function deleteProfessor(index) {
         .then(response => response.json())
         .then(professores => {
             const professor = professores[index];
-            if (confirm(`Tem certeza que deseja excluir este professor?`)) {
-                fetch(`http://localhost:3000/professores/${professor.codigo}`, {
-                    method: 'DELETE'
+            if (confirm('Tem certeza que deseja excluir este professor?')) {
+                fetch('http://localhost:3000/professores/' + professor.codigo, {
+                    method: 'DELETE',
+                    headers: { "Content-Type": "application/json" },
                 })
-                    .then(() => {
+                    .then(response => response.json())
+                    .then(dados => {
+                        console.log(dados)
                         renderProfessores();
                     });
             }
