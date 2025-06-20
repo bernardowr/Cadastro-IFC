@@ -5,7 +5,7 @@ class Professor {
     const result = await query(
       `SELECT p.id as codigo, p.nome as nomeprofessor, p.email, s.descricao as sala
        FROM public.professor p
-       LEFT JOIN public.sala s ON p. fk_sala_id_sala = s.id`
+       LEFT JOIN public.sala s ON p. fk_sala_id_sala = s.id ORDER BY p.nome`
     )
     return result.rows
   }
