@@ -1,31 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const cursos = require('../public/cursos.json');
+const cursosController = require('../controllers/cursosController');
 
-// Obter todos os cursos
-router.get('/', (req, res) => {
-    res.json(cursos);
-});
-
-// Obter um curso pelo código
-router.get('/:id', (req, res) => {
-    const curso = cursos[req.params.id]
-    res.json(curso);
-});
-
-router.post('/', (req, res) => {
-    console.log(req.body)
-    res.send('A requisição POST para cursos/ chegou: ' + req.body.nomeProfessor)
-})
-
-router.put('/:id', (req, res) => {
-    console.log(req.body)
-    res.send('A requisição PUT para cursos/ chegou: ' + req.params.id)
-})
-
-router.delete('/:id', (req, res) => {
-    console.log(req.body)
-    res.send('A requisição DELETE para cursos/ chegou: ' + req.params.id)
-})
+router.get('/', cursosController.getCursos);
+router.get('/:id', cursosController.getCurso);
+router.post('/', cursosController.insereCurso);
+router.put('/:id', cursosController.updateCurso);
+router.delete('/:id', cursosController.deleteCurso);
 
 module.exports = router;

@@ -5,14 +5,14 @@ class Professor {
     const result = await query(
       `SELECT p.id as codigo, p.nome as nomeprofessor, p.email, s.descricao as sala
        FROM public.professor p
-       LEFT JOIN public.sala s ON p. fk_sala_id_sala = s.id ORDER BY p.nome`
+       LEFT JOIN public.sala s ON p.fk_sala_id_sala = s.id ORDER BY p.nome`
     )
     return result.rows
   }
 
   static async getById(id) {
     const result = await query(
-      `SELECT id FROM public.professor where id = $1`, [id]
+      `SELECT id FROM public.professor WHERE id = $1`, [id]
     )
     return result.rows
   }
@@ -20,10 +20,11 @@ class Professor {
   static async insert({ nome, email, sala }) {
     // 1. Cria o professor sem sala
     const profResult = await query(
-      `INSERT INTO public.professor (nome, email) VALUES ($1, $2) RETURNING id`,
+      `INSERT INTO public.professor (nome, email) VALUES ($1, $2) RETURNING id, nome`,
       [nome, email]
     );
     const professorId = profResult.rows[0].id;
+    const professorNome = profResult.rows[0].nome;
 
     // 2. Cria a sala vinculando ao professor
     const salaResult = await query(
@@ -38,7 +39,7 @@ class Professor {
       [salaId, professorId]
     );
 
-    // 4. Retorna o professor criado (opcional: pode retornar mais informações se quiser)
+    // 4. Retorna o professor criado
     return { id: professorId, nome, email, salaId };
   }
 
@@ -50,15 +51,12 @@ class Professor {
 
     let salaId;
     if (salaResult.rows.length > 0) {
-      // Sala já existe
       salaId = salaResult.rows[0].id;
-      // Atualiza o professor_id da sala para o professor atual
       await query(
         `UPDATE public.sala SET professor_id = $1 WHERE id = $2`,
         [id, salaId]
       );
     } else {
-      // Cria a sala vinculando ao professor
       const insertSala = await query(
         `INSERT INTO public.sala (descricao, professor_id) VALUES ($1, $2) RETURNING id`,
         [sala, id]
@@ -75,9 +73,16 @@ class Professor {
   }
 
   static async delete(id) {
-    // Remove o vínculo do professor nos cursos
+    // Busca o nome do professor antes de deletar
+    const profResult = await query(
+      `SELECT nome FROM public.professor WHERE id = $1`, [id]
+    );
+    if (profResult.rows.length === 0) return null;
+    const professorNome = profResult.rows[0].nome;
+
+    // Remove o vínculo do professor nos cursos (agora por nome_coordenador)
     await query(
-      `UPDATE public.cursos SET id_coordenador = NULL WHERE id_coordenador = $1`, [id]
+      `UPDATE public.cursos SET nome_coordenador = NULL WHERE nome_coordenador = $1`, [professorNome]
     );
 
     // Remove o vínculo do professor nas salas

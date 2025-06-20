@@ -1,8 +1,0 @@
-post http://localhost:3000/professores http/1.1
-Content-Type: application/json
-
-{
-  "nome": "João Silva",
-  "email": "joao.silva@example.com",
-  "sala": 1
-}
